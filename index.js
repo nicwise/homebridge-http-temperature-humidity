@@ -86,9 +86,10 @@ HttpTemphum.prototype = {
             informationService = new Service.AccessoryInformation();
 
         informationService
-                .setCharacteristic(Characteristic.Manufacturer, this.manufacturer)
-                .setCharacteristic(Characteristic.Model, this.model)
-                .setCharacteristic(Characteristic.SerialNumber, this.serial);
+            .setCharacteristic(Characteristic.Manufacturer, this.manufacturer)
+            .setCharacteristic(Characteristic.Model, this.model);
+            // setting the serial number resulted an issues
+            // .setCharacteristic(Characteristic.SerialNumber, this.serial);
         services.push(informationService);
 
         temperatureService = new Service.TemperatureSensor(this.name);
