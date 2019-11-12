@@ -123,7 +123,7 @@ HttpTemphum.prototype = {
       humidityService = new Service.HumiditySensor(this.name);
       humidityService
         .getCharacteristic(Characteristic.CurrentRelativeHumidity)
-        .setProps({ minValue: -100, maxValue: 100 })
+        .setProps({ minValue: 0, maxValue: 100 })
         .on("get", this.getStateHumidity.bind(this));
       services.push(humidityService);
     }
