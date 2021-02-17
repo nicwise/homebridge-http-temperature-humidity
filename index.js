@@ -7,7 +7,7 @@ var url;
 var humidity = 0;
 var temperature = 0;
 
-module.exports = function(homebridge) {
+module.exports = function (homebridge) {
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
   homebridge.registerAccessory(
@@ -32,7 +32,7 @@ function HttpTemphum(log, config) {
 }
 
 HttpTemphum.prototype = {
-  httpRequest: function(
+  httpRequest: function (
     url,
     body,
     method,
@@ -48,17 +48,17 @@ HttpTemphum.prototype = {
         method: method,
         rejectUnauthorized: false
       },
-      function(error, response, body) {
+      function (error, response, body) {
         callback(error, response, body);
       }
     );
   },
 
-  getStateHumidity: function(callback) {
+  getStateHumidity: function (callback) {
     callback(null, this.humidity);
   },
 
-  getState: function(callback) {
+  getState: function (callback) {
     var body;
 
     var res = request(this.http_method, this.url, {});
@@ -90,30 +90,31 @@ HttpTemphum.prototype = {
             info.humidity
           );
 
-        
+
         this.log(info);
 
         this.temperature = info.temperature;
         if (this.humidity !== false) this.humidity = info.humidity;
       } catch (ex) {
-          this.log('error getting temp');
-          this.log(ex);
-          var err = new Error(
-            "Error getting temps"
-          );
-          err.body = res.body;
-          callback(err);
+        this.log('error getting temp');
+        this.log(ex);
+        var err = new Error(
+          "Error getting temps"
+        );
+        err.body = res.body;
+        callback(err);
+        return;
       }
       callback(null, this.temperature);
     }
   },
 
-  identify: function(callback) {
+  identify: function (callback) {
     this.log("Identify requested!");
     callback(); // success
   },
 
-  getServices: function() {
+  getServices: function () {
     var services = [],
       informationService = new Service.AccessoryInformation();
 
