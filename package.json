@@ -1,6 +1,6 @@
 {
   "name": "homebridge-http-temperature-humidity",
-  "version": "0.0.18",
+  "version": "0.1.0",
   "description": "https plugin for homebridge",
   "license": "ISC",
   "keywords": [
@@ -11,11 +11,11 @@
     "homebridge": ">=0.2.0"
   },
   "author": {
-    "name": "Valentin Knabel"
+    "name": "Valentin Knabel",
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/vknabel/homebridge-http-temperature-humidity.git"
+    "url": "git://github.com/nicwise/homebridge-http-temperature-humidity.git"
   },
   "dependencies": {
     "sync-request": "^2.1.0"

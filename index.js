@@ -11,7 +11,7 @@ module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
   homebridge.registerAccessory(
-    "homebridge-httptemperaturehumidity",
+    "homebridge-http-temperature-humidity",
     "HttpTemphum",
     HttpTemphum
   );
@@ -73,26 +73,37 @@ HttpTemphum.prototype = {
       callback(err);
     } else {
       this.log("HTTP power function succeeded!");
-      var info = JSON.parse(res.body);
-      info.temperature = parseFloat(info.temperature);
-      info.humidity = parseFloat(info.humidity);
+      try {
+        this.log(res.body);
+        this.log('parsing....');
+        var info = JSON.parse(res.body);
+        info.temperature = parseFloat(info.temperature);
+        info.humidity = parseFloat(info.humidity);
 
-      temperatureService.setCharacteristic(
-        Characteristic.CurrentTemperature,
-        info.temperature
-      );
-      if (this.humidity != false)
-        humidityService.setCharacteristic(
-          Characteristic.CurrentRelativeHumidity,
-          info.humidity
+        temperatureService.setCharacteristic(
+          Characteristic.CurrentTemperature,
+          info.temperature
         );
+        if (this.humidity != false)
+          humidityService.setCharacteristic(
+            Characteristic.CurrentRelativeHumidity,
+            info.humidity
+          );
 
-      this.log(res.body);
-      this.log(info);
+        
+        this.log(info);
 
-      this.temperature = info.temperature;
-      if (this.humidity !== false) this.humidity = info.humidity;
-
+        this.temperature = info.temperature;
+        if (this.humidity !== false) this.humidity = info.humidity;
+      } catch (ex) {
+          this.log('error getting temp');
+          this.log(ex);
+          var err = new Error(
+            "Error getting temps"
+          );
+          err.body = res.body;
+          callback(err);
+      }
       callback(null, this.temperature);
     }
   },

@@ -1,5 +1,7 @@
 # homebridge-http-temperature-humidity
 
+# FORKED
+
 Supports https devices on HomeBridge Platform
 
 # Installation
@@ -14,16 +16,16 @@ Supports https devices on HomeBridge Platform
 Configuration sample file:
 
  ```
+
 "accessories": [
-        "accessories": [
-        {
-            "accessory": "HttpTemphum",
-            "name": "Living Room Weather",
-            "url": "http://192.168.1.210/weather",
-            "sendimmediately": "",
-            "http_method": "GET"
-        }
-    ]
+    {
+        "accessory": "HttpTemphum",
+        "name": "Living Room Weather",
+        "url": "http://192.168.1.210/weather",
+        "sendimmediately": "",
+        "http_method": "GET"
+    }
+]
 
 ```
 
